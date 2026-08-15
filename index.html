@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ArreglaYa</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#e1e5e4;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172326}.app{width:390px;max-width:100%;min-height:100vh;margin:auto;background:#f7f9f8}.top{height:64px;background:#fff;border-bottom:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0}.logo{font-size:28px;font-weight:900}.logo span{color:#ffc52e}button{font:inherit;cursor:pointer}.screen{display:none;padding:20px 18px 90px;min-height:calc(100vh - 64px)}.screen.active{display:block}h1{font-size:28px;margin:10px 0}h2{font-size:21px}.hero{background:#07545a;color:white;border-radius:22px;padding:20px}.search,.card,.field{background:#fff;border:1px solid #e0e5e4;border-radius:15px;padding:14px;margin:9px 0}.search{color:#778183;cursor:pointer}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.cat{background:white;border:1px solid #e0e5e4;border-radius:15px;padding:12px 4px}.cat b{display:block;font-size:24px}.cat small{font-size:11px}.primary,.outline{width:100%;padding:14px;border-radius:13px;font-weight:800;margin-top:9px}.primary{border:0;background:#07545a;color:white}.outline{border:1px solid #07545a;background:white;color:#07545a}.field{width:100%;font-size:15px}.avatar{width:50px;height:50px;border-radius:50%;background:#dce8e7;display:grid;place-items:center;font-weight:900;color:#07545a}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.muted{color:#697476;font-size:13px}.tag{background:#fff0c8;border-radius:7px;padding:4px 7px;font-size:10px}.price{font-weight:900;color:#07545a;font-size:20px}.profile{background:#07545a;color:white;border-radius:20px;padding:16px}.back{border:0;background:none;padding:0}.success{text-align:center;padding-top:80px;font-size:18px}.check{font-size:64px}.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:390px;max-width:100%;background:white;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:9px}.nav button{border:0;background:none;font-size:10px}.nav b{display:block;font-size:19px}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><button onclick="alert('Menú')">☰</button><div class="logo">Arregla<span>Ya</span></div><button onclick="alert('No hay notificaciones')">🔔</button></header>
+
+<section id="home" class="screen active">
+<div class="hero"><h1>👋 ¿Qué necesitas?</h1><p>Encuentra ayuda de confianza cerca de ti.</p><div class="search" onclick="go('request')">🔎 Describe lo que necesitas… →</div></div>
+<h2>Categorías</h2><div class="grid">
+<button class="cat" onclick="service('🔧 Montaje de muebles')"><b>🔧</b><small>Montaje</small></button>
+<button class="cat" onclick="service('💻 Tecnología')"><b>💻</b><small>Tecnología</small></button>
+<button class="cat" onclick="service('🏠 Hogar')"><b>🏠</b><small>Hogar</small></button>
+<button class="cat" onclick="service('📦 Mudanzas')"><b>📦</b><small>Mudanzas</small></button>
+<button class="cat" onclick="service('🐶 Mascotas')"><b>🐶</b><small>Mascotas</small></button>
+<button class="cat" onclick="service('⚡ Urgente')"><b>⚡</b><small>Ahora</small></button>
+</div>
+<div class="card">🛡️ <b>Profesionales verificados</b><br><span class="muted">Perfiles, valoraciones y experiencia.</span></div>
+<button class="primary" onclick="go('request')">＋ Solicitar ayuda</button>
+</section>
+
+<section id="request" class="screen">
+<button class="back" onclick="go('home')">← Volver</button><h2>Nueva solicitud</h2>
+<input id="service" class="field" placeholder="Servicio">
+<textarea class="field" style="height:100px" placeholder="Describe lo que necesitas…"></textarea>
+<button class="outline" onclick="alert('En la app real se abriría la cámara')">📷 Añadir fotos</button>
+<select class="field"><option>📍 Madrid</option><option>📍 Chamartín</option></select>
+<select class="field"><option>Hoy · 18:00–20:00</option><option>Mañana · 10:00–12:00</option></select>
+<button class="primary" onclick="go('matches')">Buscar profesionales →</button>
+</section>
+
+<section id="matches" class="screen">
+<button class="back" onclick="go('request')">← Volver</button><h2>Profesionales disponibles</h2>
+<div class="card"><b>Montar armario IKEA</b><br><span class="muted">📍 Chamartín · Hoy 18:00</span></div>
+<div class="card"><div class="row"><div style="display:flex;gap:10px;align-items:center"><div class="avatar">CM</div><div><b>Carlos M.</b><br>⭐ 4,9 (127)<br><span class="muted">Montaje · 2,1 km</span></div></div><button class="primary" style="width:auto;margin:0" onclick="go('profile')">Ver</button></div><div class="price" style="text-align:right">45 €</div></div>
+<div class="card"><div class="row"><div style="display:flex;gap:10px;align-items:center"><div class="avatar">LP</div><div><b>Lucía P.</b><br>⭐ 5,0 (54)<br><span class="muted">Hogar · 3,4 km</span></div></div><button class="primary" style="width:auto;margin:0" onclick="go('profile2')">Ver</button></div><div class="price" style="text-align:right">40 €</div></div>
+</section>
+
+<section id="profile" class="screen">
+<button class="back" onclick="go('matches')">← Volver</button><div class="profile"><div class="row"><div class="avatar">CM</div><div><h2 style="margin:0">Carlos M.</h2><p>Montaje de muebles</p><span class="tag">✓ Verificado</span></div></div></div>
+<div class="card"><b>⭐ 4,9</b> · 127 trabajos<br><span class="muted">Especialista en montaje de muebles y pequeñas tareas.</span></div>
+<button class="primary" onclick="go('confirm')">Seleccionar profesional →</button>
+</section>
+
+<section id="profile2" class="screen">
+<button class="back" onclick="go('matches')">← Volver</button><div class="profile"><div class="row"><div class="avatar">LP</div><div><h2 style="margin:0">Lucía P.</h2><p>Manitas del hogar</p><span class="tag">✓ Verificado</span></div></div></div>
+<div class="card"><b>⭐ 5,0</b> · 54 trabajos</div><button class="primary" onclick="go('confirm')">Seleccionar profesional →</button>
+</section>
+
+<section id="confirm" class="screen">
+<button class="back" onclick="go('matches')">← Volver</button><h2>Confirmar servicio</h2><div class="card"><div class="row"><b>Montar armario IKEA</b><span class="price">45 €</span></div><p class="muted">Hoy · 18:00 · Madrid</p></div>
+<div class="card"><div class="row"><span>Servicio</span><b>45,00 €</b></div><div class="row"><span>Comisión ArreglaYa</span><b>Incluida</b></div></div>
+<button class="primary" onclick="go('success')">Confirmar solicitud</button>
+</section>
+
+<section id="success" class="screen"><div class="success"><div class="check">✅</div><h1>¡Solicitud enviada!</h1><p class="muted">El profesional ha recibido tu solicitud.</p><button class="primary" onclick="go('home')">Volver al inicio</button></div></section>
+
+<nav class="nav"><button onclick="go('home')"><b>⌂</b>Inicio</button><button onclick="go('request')"><b>＋</b>Solicitar</button><button onclick="go('matches')"><b>🔎</b>Buscar</button></nav>
+</div>
+<script>
+function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
+function service(v){document.getElementById('service').value=v;go('request')}
+</script>
+</body>
+</html>
