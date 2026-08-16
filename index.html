@@ -1,72 +1,489 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ArreglaYa</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#e1e5e4;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172326}.app{width:390px;max-width:100%;min-height:100vh;margin:auto;background:#f7f9f8}.top{height:64px;background:#fff;border-bottom:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0}.logo{font-size:28px;font-weight:900}.logo span{color:#ffc52e}button{font:inherit;cursor:pointer}.screen{display:none;padding:20px 18px 90px;min-height:calc(100vh - 64px)}.screen.active{display:block}h1{font-size:28px;margin:10px 0}h2{font-size:21px}.hero{background:#07545a;color:white;border-radius:22px;padding:20px}.search,.card,.field{background:#fff;border:1px solid #e0e5e4;border-radius:15px;padding:14px;margin:9px 0}.search{color:#778183;cursor:pointer}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.cat{background:white;border:1px solid #e0e5e4;border-radius:15px;padding:12px 4px}.cat b{display:block;font-size:24px}.cat small{font-size:11px}.primary,.outline{width:100%;padding:14px;border-radius:13px;font-weight:800;margin-top:9px}.primary{border:0;background:#07545a;color:white}.outline{border:1px solid #07545a;background:white;color:#07545a}.field{width:100%;font-size:15px}.avatar{width:50px;height:50px;border-radius:50%;background:#dce8e7;display:grid;place-items:center;font-weight:900;color:#07545a}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.muted{color:#697476;font-size:13px}.tag{background:#fff0c8;border-radius:7px;padding:4px 7px;font-size:10px}.price{font-weight:900;color:#07545a;font-size:20px}.profile{background:#07545a;color:white;border-radius:20px;padding:16px}.back{border:0;background:none;padding:0}.success{text-align:center;padding-top:80px;font-size:18px}.check{font-size:64px}.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:390px;max-width:100%;background:white;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:9px}.nav button{border:0;background:none;font-size:10px}.nav b{display:block;font-size:19px}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;color:#17202a}
+.app{max-width:700px;margin:auto;min-height:100vh;background:white}
+header{padding:18px 20px;background:#111827;color:white}
+header h1{margin:0;font-size:25px}
+main{padding:20px}
+.card{background:white;border:1px solid #e5e7eb;border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 3px 12px #0000000d}
+input,select,textarea{width:100%;padding:13px;margin:7px 0 12px;border:1px solid #d1d5db;border-radius:10px;font-size:16px}
+button{border:0;border-radius:10px;padding:13px 16px;font-size:16px;cursor:pointer}
+.primary{background:#2563eb;color:white;width:100%}
+.secondary{background:#e5e7eb;color:#111827;width:100%;margin-top:8px}
+.hidden{display:none}
+.cat{background:#f3f4f6;margin:5px;padding:12px;border-radius:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr}
+.status{padding:10px;border-radius:8px;background:#f3f4f6;margin-top:10px}
+.small{font-size:13px;color:#6b7280}
+h2{margin-top:5px}
 </style>
 </head>
+
 <body>
 <div class="app">
-<header class="top"><button onclick="alert('Menú')">☰</button><div class="logo">Arregla<span>Ya</span></div><button onclick="alert('No hay notificaciones')">🔔</button></header>
 
-<section id="home" class="screen active">
-<div class="hero"><h1>👋 ¿Qué necesitas?</h1><p>Encuentra ayuda de confianza cerca de ti.</p><div class="search" onclick="go('request')">🔎 Describe lo que necesitas… →</div></div>
-<h2>Categorías</h2><div class="grid">
-<button class="cat" onclick="service('🔧 Montaje de muebles')"><b>🔧</b><small>Montaje</small></button>
-<button class="cat" onclick="service('💻 Tecnología')"><b>💻</b><small>Tecnología</small></button>
-<button class="cat" onclick="service('🏠 Hogar')"><b>🏠</b><small>Hogar</small></button>
-<button class="cat" onclick="service('📦 Mudanzas')"><b>📦</b><small>Mudanzas</small></button>
-<button class="cat" onclick="service('🐶 Mascotas')"><b>🐶</b><small>Mascotas</small></button>
-<button class="cat" onclick="service('⚡ Urgente')"><b>⚡</b><small>Ahora</small></button>
+<header>
+<h1>🔧 ArreglaYa</h1>
+</header>
+
+<main>
+
+<section id="auth">
+<div class="card">
+<h2>Bienvenido a ArreglaYa</h2>
+<p>Encuentra profesionales para tus reparaciones o recibe trabajos como profesional.</p>
+
+<label>Email</label>
+<input id="email" type="email" placeholder="tu@email.com">
+
+<label>Contraseña</label>
+<input id="password" type="password" placeholder="Mínimo 6 caracteres">
+
+<label>Nombre</label>
+<input id="name" placeholder="Tu nombre">
+
+<label>Tipo de cuenta</label>
+<select id="userType">
+<option value="cliente">Cliente</option>
+<option value="profesional">Profesional</option>
+</select>
+
+<button class="primary" onclick="register()">Crear cuenta</button>
+<button class="secondary" onclick="login()">Iniciar sesión</button>
+
+<p id="authMessage" class="small"></p>
 </div>
-<div class="card">🛡️ <b>Profesionales verificados</b><br><span class="muted">Perfiles, valoraciones y experiencia.</span></div>
-<button class="primary" onclick="go('request')">＋ Solicitar ayuda</button>
 </section>
 
-<section id="request" class="screen">
-<button class="back" onclick="go('home')">← Volver</button><h2>Nueva solicitud</h2>
-<input id="service" class="field" placeholder="Servicio">
-<textarea class="field" style="height:100px" placeholder="Describe lo que necesitas…"></textarea>
-<button class="outline" onclick="alert('En la app real se abriría la cámara')">📷 Añadir fotos</button>
-<select class="field"><option>📍 Madrid</option><option>📍 Chamartín</option></select>
-<select class="field"><option>Hoy · 18:00–20:00</option><option>Mañana · 10:00–12:00</option></select>
-<button class="primary" onclick="go('matches')">Buscar profesionales →</button>
-</section>
+<section id="app" class="hidden">
 
-<section id="matches" class="screen">
-<button class="back" onclick="go('request')">← Volver</button><h2>Profesionales disponibles</h2>
-<div class="card"><b>Montar armario IKEA</b><br><span class="muted">📍 Chamartín · Hoy 18:00</span></div>
-<div class="card"><div class="row"><div style="display:flex;gap:10px;align-items:center"><div class="avatar">CM</div><div><b>Carlos M.</b><br>⭐ 4,9 (127)<br><span class="muted">Montaje · 2,1 km</span></div></div><button class="primary" style="width:auto;margin:0" onclick="go('profile')">Ver</button></div><div class="price" style="text-align:right">45 €</div></div>
-<div class="card"><div class="row"><div style="display:flex;gap:10px;align-items:center"><div class="avatar">LP</div><div><b>Lucía P.</b><br>⭐ 5,0 (54)<br><span class="muted">Hogar · 3,4 km</span></div></div><button class="primary" style="width:auto;margin:0" onclick="go('profile2')">Ver</button></div><div class="price" style="text-align:right">40 €</div></div>
-</section>
-
-<section id="profile" class="screen">
-<button class="back" onclick="go('matches')">← Volver</button><div class="profile"><div class="row"><div class="avatar">CM</div><div><h2 style="margin:0">Carlos M.</h2><p>Montaje de muebles</p><span class="tag">✓ Verificado</span></div></div></div>
-<div class="card"><b>⭐ 4,9</b> · 127 trabajos<br><span class="muted">Especialista en montaje de muebles y pequeñas tareas.</span></div>
-<button class="primary" onclick="go('confirm')">Seleccionar profesional →</button>
-</section>
-
-<section id="profile2" class="screen">
-<button class="back" onclick="go('matches')">← Volver</button><div class="profile"><div class="row"><div class="avatar">LP</div><div><h2 style="margin:0">Lucía P.</h2><p>Manitas del hogar</p><span class="tag">✓ Verificado</span></div></div></div>
-<div class="card"><b>⭐ 5,0</b> · 54 trabajos</div><button class="primary" onclick="go('confirm')">Seleccionar profesional →</button>
-</section>
-
-<section id="confirm" class="screen">
-<button class="back" onclick="go('matches')">← Volver</button><h2>Confirmar servicio</h2><div class="card"><div class="row"><b>Montar armario IKEA</b><span class="price">45 €</span></div><p class="muted">Hoy · 18:00 · Madrid</p></div>
-<div class="card"><div class="row"><span>Servicio</span><b>45,00 €</b></div><div class="row"><span>Comisión ArreglaYa</span><b>Incluida</b></div></div>
-<button class="primary" onclick="go('success')">Confirmar solicitud</button>
-</section>
-
-<section id="success" class="screen"><div class="success"><div class="check">✅</div><h1>¡Solicitud enviada!</h1><p class="muted">El profesional ha recibido tu solicitud.</p><button class="primary" onclick="go('home')">Volver al inicio</button></div></section>
-
-<nav class="nav"><button onclick="go('home')"><b>⌂</b>Inicio</button><button onclick="go('request')"><b>＋</b>Solicitar</button><button onclick="go('matches')"><b>🔎</b>Buscar</button></nav>
+<div class="card">
+<h2 id="welcome"></h2>
+<button class="secondary" onclick="logout()">Cerrar sesión</button>
 </div>
-<script>
-function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');scrollTo(0,0)}
-function service(v){document.getElementById('service').value=v;go('request')}
+
+<div id="clientPanel" class="hidden">
+
+<div class="card">
+<h2>¿Qué necesitas?</h2>
+
+<div class="grid">
+<button class="cat" onclick="chooseService('Fontanería')">🔧 Fontanería</button>
+<button class="cat" onclick="chooseService('Electricidad')">💡 Electricidad</button>
+<button class="cat" onclick="chooseService('Pintura')">🎨 Pintura</button>
+<button class="cat" onclick="chooseService('Carpintería')">🪚 Carpintería</button>
+<button class="cat" onclick="chooseService('Limpieza')">🧹 Limpieza</button>
+<button class="cat" onclick="chooseService('Otros')">🛠️ Otros</button>
+</div>
+
+</div>
+
+<div id="requestForm" class="card hidden">
+<h2>Crear solicitud</h2>
+
+<label>Servicio</label>
+<input id="service" readonly>
+
+<label>Describe lo que necesitas</label>
+<textarea id="description" rows="5" placeholder="Explica el trabajo..."></textarea>
+
+<label>Ciudad</label>
+<input id="city" value="Madrid">
+
+<label>Presupuesto aproximado</label>
+<input id="price" type="number" placeholder="€">
+
+<button class="primary" onclick="createRequest()">Enviar solicitud</button>
+
+<p id="requestMessage" class="small"></p>
+</div>
+
+<div class="card">
+<h2>Mis solicitudes</h2>
+<div id="myRequests">Cargando...</div>
+</div>
+
+</div>
+
+<div id="professionalPanel" class="hidden">
+
+<div class="card">
+<h2>Perfil profesional</h2>
+
+<input id="profession" placeholder="Profesión">
+<textarea id="professionalDescription" rows="4" placeholder="Describe tus servicios"></textarea>
+<input id="priceFrom" type="number" placeholder="Precio desde (€)">
+
+<button class="primary" onclick="saveProfessionalProfile()">Guardar perfil</button>
+
+<p id="professionalMessage" class="small"></p>
+</div>
+
+<div class="card">
+<h2>Solicitudes disponibles</h2>
+<div id="availableRequests">Cargando...</div>
+</div>
+
+<div class="card">
+<h2>Mis trabajos</h2>
+<div id="myJobs">Cargando...</div>
+</div>
+
+</div>
+
+</section>
+
+</main>
+</div>
+
+<script type="module">
+
+import { createClient }
+from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+const SUPABASE_URL = "https://yljevtkreoefhojrgcny.supabase.co";
+
+const SUPABASE_KEY = FsZpWdEvCii3fTf8_KEY;
+
+const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+let currentUser = null;
+let currentType = null;
+
+async function register(){
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const name = document.getElementById("name").value.trim();
+  const userType = document.getElementById("userType").value;
+
+  if(!email || !password || !name){
+    showAuth("Completa todos los campos.");
+    return;
+  }
+
+  const {error} = await supabase.auth.signUp({
+    email,
+    password,
+    options:{
+      data:{
+        full_name:name,
+        user_type:userType
+      }
+    }
+  });
+
+  if(error){
+    showAuth(error.message);
+    return;
+  }
+
+  showAuth(
+    "Cuenta creada. Si Supabase pide confirmar tu email, revisa tu correo."
+  );
+}
+
+async function login(){
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+
+  const {data,error} = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if(error){
+    showAuth(error.message);
+    return;
+  }
+
+  await loadApp(data.user);
+}
+
+async function logout(){
+  await supabase.auth.signOut();
+  location.reload();
+}
+
+function showAuth(message){
+  document.getElementById("authMessage").textContent = message;
+}
+
+async function loadApp(user){
+
+  currentUser = user;
+  currentType = user.user_metadata?.user_type || "cliente";
+
+  document.getElementById("auth").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+
+  document.getElementById("welcome").textContent =
+    "Hola, " + (user.user_metadata?.full_name || "usuario") + " 👋";
+
+  if(currentType === "profesional"){
+    document.getElementById("professionalPanel").classList.remove("hidden");
+    await loadProfessionalProfile();
+    await loadAvailableRequests();
+    await loadMyJobs();
+  }else{
+    document.getElementById("clientPanel").classList.remove("hidden");
+    await loadMyRequests();
+  }
+}
+
+window.register = register;
+window.login = login;
+window.logout = logout;
+
+window.chooseService = function(service){
+
+  document.getElementById("requestForm").classList.remove("hidden");
+  document.getElementById("service").value = service;
+
+  document.getElementById("requestForm")
+    .scrollIntoView({behavior:"smooth"});
+};
+
+window.createRequest = async function(){
+
+  const service = document.getElementById("service").value;
+  const description = document.getElementById("description").value.trim();
+  const city = document.getElementById("city").value.trim();
+  const price = document.getElementById("price").value;
+
+  if(!description){
+    document.getElementById("requestMessage").textContent =
+      "Describe el trabajo que necesitas.";
+    return;
+  }
+
+  const {error} = await supabase
+    .from("service_requests")
+    .insert({
+      client_id:currentUser.id,
+      service,
+      description,
+      city,
+      price:price ? Number(price) : null
+    });
+
+  if(error){
+    document.getElementById("requestMessage").textContent =
+      error.message;
+    return;
+  }
+
+  document.getElementById("requestMessage").textContent =
+    "✅ Solicitud enviada correctamente.";
+
+  document.getElementById("description").value = "";
+  document.getElementById("price").value = "";
+
+  await loadMyRequests();
+};
+
+async function loadMyRequests(){
+
+  const {data,error} = await supabase
+    .from("service_requests")
+    .select("*")
+    .eq("client_id",currentUser.id)
+    .order("created_at",{ascending:false});
+
+  const container = document.getElementById("myRequests");
+
+  if(error){
+    container.textContent = error.message;
+    return;
+  }
+
+  if(!data.length){
+    container.innerHTML =
+      "<p class='small'>Todavía no tienes solicitudes.</p>";
+    return;
+  }
+
+  container.innerHTML = data.map(r => `
+    <div class="status">
+      <strong>${escapeHtml(r.service)}</strong>
+      <br>${escapeHtml(r.description || "")}
+      <br>
+      <span class="small">
+      ${escapeHtml(r.city || "")} · Estado: ${escapeHtml(r.status)}
+      </span>
+    </div>
+  `).join("");
+}
+
+window.saveProfessionalProfile = async function(){
+
+  const profession = document.getElementById("profession").value.trim();
+  const description =
+    document.getElementById("professionalDescription").value.trim();
+
+  const priceFrom =
+    document.getElementById("priceFrom").value;
+
+  if(!profession){
+    document.getElementById("professionalMessage").textContent =
+      "Escribe tu profesión.";
+    return;
+  }
+
+  const {error} = await supabase
+    .from("professional_profiles")
+    .upsert({
+      id:currentUser.id,
+      profession,
+      description,
+      price_from:priceFrom ? Number(priceFrom) : null
+    });
+
+  document.getElementById("professionalMessage").textContent =
+    error ? error.message : "✅ Perfil guardado.";
+};
+
+async function loadProfessionalProfile(){
+
+  const {data} = await supabase
+    .from("professional_profiles")
+    .select("*")
+    .eq("id",currentUser.id)
+    .maybeSingle();
+
+  if(!data) return;
+
+  document.getElementById("profession").value =
+    data.profession || "";
+
+  document.getElementById("professionalDescription").value =
+    data.description || "";
+
+  document.getElementById("priceFrom").value =
+    data.price_from || "";
+}
+
+async function loadAvailableRequests(){
+
+  const {data,error} = await supabase
+    .from("service_requests")
+    .select("*")
+    .eq("status","pendiente")
+    .is("professional_id",null)
+    .order("created_at",{ascending:false});
+
+  const container = document.getElementById("availableRequests");
+
+  if(error){
+    container.textContent = error.message;
+    return;
+  }
+
+  if(!data.length){
+    container.innerHTML =
+      "<p class='small'>No hay solicitudes disponibles.</p>";
+    return;
+  }
+
+  container.innerHTML = data.map(r => `
+    <div class="status">
+      <strong>${escapeHtml(r.service)}</strong>
+      <br>${escapeHtml(r.description || "")}
+      <br>
+      <span class="small">
+      ${escapeHtml(r.city || "")}
+      </span>
+      <br><br>
+      <button onclick="acceptJob('${r.id}')">
+      Aceptar trabajo
+      </button>
+    </div>
+  `).join("");
+}
+
+window.acceptJob = async function(id){
+
+  const {error} = await supabase
+    .from("service_requests")
+    .update({
+      professional_id:currentUser.id,
+      status:"aceptada"
+    })
+    .eq("id",id)
+    .eq("status","pendiente")
+    .is("professional_id",null);
+
+  if(error){
+    alert(error.message);
+    return;
+  }
+
+  await loadAvailableRequests();
+  await loadMyJobs();
+};
+
+async function loadMyJobs(){
+
+  const {data,error} = await supabase
+    .from("service_requests")
+    .select("*")
+    .eq("professional_id",currentUser.id)
+    .order("created_at",{ascending:false});
+
+  const container = document.getElementById("myJobs");
+
+  if(error){
+    container.textContent = error.message;
+    return;
+  }
+
+  if(!data.length){
+    container.innerHTML =
+      "<p class='small'>Todavía no tienes trabajos.</p>";
+    return;
+  }
+
+  container.innerHTML = data.map(r => `
+    <div class="status">
+      <strong>${escapeHtml(r.service)}</strong>
+      <br>${escapeHtml(r.description || "")}
+      <br>
+      <span class="small">
+      Estado: ${escapeHtml(r.status)}
+      </span>
+    </div>
+  `).join("");
+}
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+const {data:{session}} =
+  await supabase.auth.getSession();
+
+if(session){
+  await loadApp(session.user);
+}
+
 </script>
+
 </body>
 </html>
